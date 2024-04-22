@@ -1,5 +1,5 @@
 
-FROM ubuntu:18.04
+FROM rockylinux:8.9
 ENV LANG C.UTF-8
 LABEL maintainer="Stephen Graham" \
       license="GNU LGPL 2.1"
