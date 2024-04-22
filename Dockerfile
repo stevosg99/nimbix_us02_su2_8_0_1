@@ -4,23 +4,11 @@ ENV LANG C.UTF-8
 LABEL maintainer="Stephen Graham" \
       license="GNU LGPL 2.1"
 
-RUN dnf update && dnf install -y \
-    python3-dev \
-    pkg-config \
-    python3-pip \
-    git \
-    build-essential \
-    gcc \
-    g++ \
-    python3-setuptools \
-    libopenmpi-dev \
-    openmpi-bin \
-    python3-mpi4py \
-    swig \
-    python3-numpy \
-    python3-scipy
+RUN dnf update && dnf install -y dnf-plugins-core epel-release
+RUN dnf config-manager --set-enabled powertools
+RUN dnf install -y git gcc gcc-c++ swig
 
-RUN apt remove -y mpich
+RUN dnf remove -y mpich
 
 # Copy from nimbix/image-common
 RUN dnf -y update && \
