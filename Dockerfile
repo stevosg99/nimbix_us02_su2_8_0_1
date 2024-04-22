@@ -4,7 +4,7 @@ ENV LANG C.UTF-8
 LABEL maintainer="Stephen Graham" \
       license="GNU LGPL 2.1"
 
-RUN apt-get update && apt-get install -y \
+RUN dnf update && dnf install -y \
     python3-dev \
     pkg-config \
     python3-pip \
@@ -23,8 +23,8 @@ RUN apt-get update && apt-get install -y \
 RUN apt remove -y mpich
 
 # Copy from nimbix/image-common
-RUN apt-get -y update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y install curl && \
+RUN dnf -y update && \
+    DEBIAN_FRONTEND=noninteractive dnf -y install curl && \
     curl -H 'Cache-Control: no-cache' \
         https://raw.githubusercontent.com/nimbix/image-common/master/install-nimbix.sh \
         | bash
