@@ -16,7 +16,7 @@ RUN curl -H 'Cache-Control: no-cache' \
         | bash
 
 # Expose port 22 for local JARVICE emulation in docker
-EXPOSE 22
+#EXPOSE 22
 
 # Change working directory
 WORKDIR /usr/local
