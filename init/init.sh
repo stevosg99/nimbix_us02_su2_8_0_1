@@ -2,10 +2,42 @@
 
 sleep 10
 
-# Compile SU2 on the main node in the session
-echo "Compiling SU2"
-/usr/local/SU2/init/compile_SU2.sh
+# Check connection to each node
+node_count=$(wc -l < "/etc/JARVICE/nodes")
+echo "$node_count node(s) in session."
+nodes_connected=1
+SECONDS=0
+while [ "$nodes_connected" -lt "$node_count" ]; do
+	if [ "$SECONDS" -gt 60 ]; then
+	    echo "At least one node has not connected."
+		echo "Exiting..."
+		exit 1
+	fi
+	sleep 5s
+    for node in $(cat /etc/JARVICE/nodes); do   
+        if [ "$node" != "$HOSTNAME" ]; then
+            echo "Checking connection to $node"
+            status=$(ssh -o BatchMode=yes -o ConnectTimeout=5 "$node" echo ok 2>&1)
+			if [ "$status" == ok ]; then
+			    echo "$node connection established."
+				((nodes_connected++))
+			else
+				echo "$node not connected. Retrying..."
+			fi
+        fi
+    done
+done
 
+# Ensure key environmental variables are set
+export SU2_DATA=/data/SU2
+export SU2_HOME=/usr/local/SU2
+export SU2_RUN=/usr/local/SU2/SU2/bin
+export PATH=$PATH:$SU2_RUN
+export PYTHONPATH=$PYTHONPATH:$SU2_RUN
+# Set environmental variable to allow multi-node use
+export SU2_MPI_COMMAND="mpirun --hostfile /etc/JARVICE/nodes -np %i %s"
+
+echo "All nodes initialized."
 echo "Changing to /data/SU2 directory to begin data processing."
 
 cd /data/SU2
