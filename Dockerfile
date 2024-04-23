@@ -1,18 +1,31 @@
-
-FROM rockylinux:9
+FROM ubuntu:18.04
 ENV LANG C.UTF-8
 LABEL maintainer="Stephen Graham" \
       license="GNU LGPL 2.1"
 
-#RUN dnf update && dnf install -y epel-release dnf-plugins-core
-#RUN dnf config-manager --set-enabled powertools
-#RUN dnf install -y git gcc gcc-c++ swig
+RUN apt-get update && apt-get install -y \
+    python3-dev \
+    pkg-config \
+    python3-pip \
+    git \
+    build-essential \
+    gcc \
+    g++ \
+    python3-setuptools \
+    libopenmpi-dev \
+    openmpi-bin \
+    python3-mpi4py \
+    swig \
+    python3-numpy \
+    python3-scipy
 
-RUN dnf remove -y mpich
+RUN apt remove -y mpich
 
 # Copy from nimbix/image-common
-RUN curl -H 'Cache-Control: no-cache' \
-        https://raw.githubusercontent.com/nimbix/jarvice-desktop/master/install-nimbix.sh \
+RUN apt-get -y update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y install curl && \
+    curl -H 'Cache-Control: no-cache' \
+        https://raw.githubusercontent.com/nimbix/image-common/master/install-nimbix.sh \
         | bash
 
 # Expose port 22 for local JARVICE emulation in docker
@@ -28,11 +41,10 @@ RUN mkdir -p /usr/local/SU2
 ADD --chown=root:root ./ /usr/local/SU2
 
 # Ensure full access
-#RUN sudo chmod -R 0777 /usr/local/SU2
+RUN sudo chmod -R 0777 /usr/local/SU2
 
 # Save Nimbix AppDef
 COPY ./NAE/AppDef.json /etc/NAE/AppDef.json
-#RUN curl --fail -X POST -d @/etc/NAE/AppDef.json https://cloud.nimbix.net/api/jarvice/validate
 COPY ./NAE/SU2logo.png /etc/NAE/SU2logo.png
 COPY ./NAE/screenshot.png /etc/NAE/screenshot.png
 
