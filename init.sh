@@ -39,9 +39,6 @@ export PYTHONPATH=$PYTHONPATH:$SU2_RUN
 export SU2_MPI_COMMAND="mpirun --hostfile /etc/JARVICE/nodes -np %i %s"
 
 echo "All nodes initialized."
-echo "Changing to /data/SU2 directory to begin data processing."
-
-cd /data/SU2
 
 # Get bash filename from session initialization
 while [[ -n "$1" ]]; do
