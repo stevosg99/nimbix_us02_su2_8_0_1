@@ -43,8 +43,6 @@ RUN mkdir /opt/SU2/
 ADD init.sh /opt/
 ADD compile_SU2.sh /opt/
 
-RUN chmod -R 0777 /opt/
-
 # Save Nimbix AppDef
 COPY NAE/AppDef.json /etc/NAE/AppDef.json
 COPY NAE/SU2logo.png /etc/NAE/SU2logo.png
