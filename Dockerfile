@@ -40,7 +40,10 @@ WORKDIR /opt/
 RUN mkdir /opt/SU2/
 
 # Add all source files to the newly created directory
-ADD ./ /opt/SU2/
+ADD init.sh /opt/
+ADD compile_SU2.sh /opt/
+
+RUN chmod -R 0777 /opt/
 
 # Save Nimbix AppDef
 COPY NAE/AppDef.json /etc/NAE/AppDef.json
@@ -48,4 +51,4 @@ COPY NAE/SU2logo.png /etc/NAE/SU2logo.png
 COPY NAE/screenshot.png /etc/NAE/screenshot.png
 
 # Call init.sh to compile and install SU2, verify all nodes are active, and begin solving
-CMD "/opt/SU2/init.sh"
+CMD "/opt/init.sh"
