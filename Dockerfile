@@ -39,11 +39,11 @@ WORKDIR /opt/
 # Create a directory to compile SU2
 RUN mkdir /opt/SU2/
 
-RUN chmod -R 0777 /opt/
-
 # Add all source files to the newly created directory
 ADD init.sh /opt/
 ADD compile_SU2.sh /opt/
+
+RUN chmod -R 0777 /opt/
 
 # Save Nimbix AppDef
 COPY NAE/AppDef.json /etc/NAE/AppDef.json
