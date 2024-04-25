@@ -1,4 +1,3 @@
-
 #! /bin/bash
 
 sleep 10
@@ -31,7 +30,7 @@ done
 
 # Ensure key environmental variables are set
 export SU2_DATA=/opt/SU2
-export SU2_HOME=/opt/SU2
+export SU2_HOME=/opt/SU2/SU2
 export SU2_RUN=/opt/SU2/SU2/bin
 export PATH=$PATH:$SU2_RUN
 export PYTHONPATH=$PYTHONPATH:$SU2_RUN
