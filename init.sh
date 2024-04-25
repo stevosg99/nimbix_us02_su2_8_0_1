@@ -37,7 +37,7 @@ export PYTHONPATH=$PYTHONPATH:$SU2_RUN
 # Set environmental variable to allow multi-node use
 export SU2_MPI_COMMAND="mpirun --hostfile /etc/JARVICE/nodes -np %i %s"
 
-chmod -R a+x "$SU2_RUN" 
+# chmod -R a+x "$SU2_RUN" 
 
 echo "All nodes initialized."
 
