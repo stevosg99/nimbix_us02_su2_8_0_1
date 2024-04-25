@@ -41,6 +41,7 @@ RUN mkdir /opt/SU2/
 
 # Add all source files to the newly created directory
 ADD init.sh /opt/
+ADD SU2 /opt/SU2
 
 RUN chmod -R 0777 /opt/
 
