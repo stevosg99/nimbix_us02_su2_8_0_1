@@ -41,7 +41,6 @@ RUN mkdir /opt/SU2/
 
 # Add all source files to the newly created directory
 ADD init.sh /opt/
-ADD compile_SU2.sh /opt/
 
 RUN chmod -R 0777 /opt/
 
